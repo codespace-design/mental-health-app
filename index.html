@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mindful Moments</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .quote-box {
+    margin-bottom: 20px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .quote-text {
+    font-size: 1.3rem;
+    font-style: italic;
+    color: #fff;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff;
+    margin-bottom: 10px;
+    transition: all 1s ease-in-out;
+  }
+
+  .quote-author {
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: linear-gradient(90deg, #00ffff, #0066ff, #00ffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #0066ff, 0 0 20px #00ffff;
+    animation: glowPulse 2.5s infinite alternate;
+    margin-top: 5px;
+  }
+
+  @keyframes glowPulse {
+    0% { text-shadow: 0 0 5px #00ffff, 0 0 10px #0066ff, 0 0 15px #00ffff; }
+    50% { text-shadow: 0 0 10px #00ffff, 0 0 20px #0066ff, 0 0 25px #00ffff; }
+    100% { text-shadow: 0 0 15px #00ffff, 0 0 30px #0066ff, 0 0 35px #00ffff; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Mindful Moments</h2>
+
+  <div class="quote-box">
+    <div id="quoteText" class="quote-text"></div>
+    <div id="quoteAuthor" class="quote-author"></div>
+  </div>
+
+  <input type="text" id="nickname" placeholder="Enter your nickname">
+  <button onclick="startQuiz()">Start Quiz</button>
+</div>
+
+<script>
+  const quotes = [
+    {text: "Mental health is just as important as physical health.", author: "Demi Lovato"},
+    {text: "You don’t have to control your thoughts. You just have to stop letting them control you.", author: "Dan Millman"},
+    {text: "Self-care is how you take your power back.", author: "Lalah Delia"},
+    {text: "What mental health needs is more sunlight, more candor, and more unashamed conversation.", author: "Glenn Close"},
+    {text: "It's okay to not be okay.", author: "Unknown"},
+    {text: "Healing takes time, and asking for help is a courageous step.", author: "Mariska Hargitay"},
+    {text: "The only journey is the journey within.", author: "Rainer Maria Rilke"}
+  ];
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  const shuffledQuotes = shuffleArray([...quotes]);
+  const chosenQuote = shuffledQuotes[0];
+  document.getElementById("quoteText").innerText = `"${chosenQuote.text}"`;
+  document.getElementById("quoteAuthor").innerText = `— ${chosenQuote.author}`;
+
+  function startQuiz() {
+    const name = document.getElementById('nickname').value.trim();
+    if(!name) return alert("Please enter a nickname!");
+    localStorage.setItem("nickname", name);
+    window.location.href = "quiz.html";
+  }
+</script>
+</body>
+</html>
